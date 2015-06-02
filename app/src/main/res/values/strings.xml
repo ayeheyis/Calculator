@@ -10,10 +10,11 @@
     <string name="name">Name</string>
     <string name="testId">Test ID</string>
     <string name="studentInfoReq">Log in below in order to start the test</string>
-    <string name="userId">User ID</string>
+    <string name="email">Email</string>
     <string name="register">Register</string>
     <string name="password">Password</string>
     <string name="welcome">Welcome</string>
+    <string name="title_activity_register">Register</string>
 
 
 </resources>

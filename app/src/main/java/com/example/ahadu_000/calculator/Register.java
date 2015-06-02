@@ -1,25 +1,23 @@
 package com.example.ahadu_000.calculator;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
-public class TeacherLogin extends ActionBarActivity {
+public class Register extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teacher_login);
+        setContentView(R.layout.activity_register);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_teacher_login, menu);
+        getMenuInflater().inflate(R.menu.menu_register, menu);
         return true;
     }
 
@@ -36,10 +34,5 @@ public class TeacherLogin extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void toRegister(View view) {
-        Intent intent = new Intent(this, Register.class);
-        startActivity(intent);
     }
 }
