@@ -9,7 +9,10 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 public class Register extends ActionBarActivity {
@@ -52,8 +55,11 @@ public class Register extends ActionBarActivity {
 
         if (!(!TextUtils.isEmpty(email) &&
                 android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())) {
-            Intent intent = new Intent(this, FailedRegister.class);
-            startActivity(intent);
+            ViewGroup layout = (ViewGroup) findViewById(R.id.registerActivity);
+            TextView errorMsg = new TextView(this);
+            errorMsg.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+            errorMsg.setText("Incorrect Info");
+            layout.addView(errorMsg);
             return;
         }
 
