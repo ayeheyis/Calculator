@@ -1,6 +1,8 @@
 package com.example.ahadu_000.calculator;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -31,6 +33,34 @@ public class TeacherDatabase  extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    // Adding new contact
+    void addPerson(Person person) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(EMAIL, person.getEmail());
+        values.put(NAME, person.getName()); // Contact Phone
+        values.put(PASSWORD, person.getPassword()); // Contact Phone
+
+        // Inserting Row
+        db.insert(TEACHER_TABLE_NAME, null, values);
+        db.close();
+    }
+
+    // Getting single contact
+    Person getPerson(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Person person = null;
+        Cursor cursor = db.query(TEACHER_TABLE_NAME, new String[] { EMAIL,
+                        NAME, PASSWORD }, EMAIL + "=?",
+                new String[] { email }, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            person = new Person(cursor.getString(1),
+                    cursor.getString(0), cursor.getString(2));
+        }
+        // return contact
+        return person;
     }
 
 

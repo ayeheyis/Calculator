@@ -52,7 +52,7 @@ public class Register extends ActionBarActivity {
         String name = nameEt.getText().toString();
         String email = emailEt.getText().toString();
         String password = passwordEt.getText().toString();
-
+        Person person = new Person(name, email, password);
         if (!(!TextUtils.isEmpty(email) &&
                 android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())) {
             ViewGroup layout = (ViewGroup) findViewById(R.id.registerActivity);
@@ -62,14 +62,10 @@ public class Register extends ActionBarActivity {
             layout.addView(errorMsg);
             return;
         }
+        //connect to database and add person
 
         TeacherDatabase tdb = new TeacherDatabase(this);
-        SQLiteDatabase db = tdb.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("Name", name);
-        values.put("Email", email);
-        values.put("Password", password);
-        db.insert("teacherInfo", null, values);
+        tdb.addPerson(person);
 
         Intent intent = new Intent(this, TeacherLogin.class);
         startActivity(intent);

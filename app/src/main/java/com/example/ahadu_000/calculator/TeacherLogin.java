@@ -54,12 +54,11 @@ public class TeacherLogin extends ActionBarActivity {
         String email = emailEt.getText().toString();
         EditText passwordEt = (EditText) findViewById(R.id.editText4);
         String password = passwordEt.getText().toString();
+
         TeacherDatabase tdb = new TeacherDatabase(this);
-        SQLiteDatabase db = tdb.getReadableDatabase();
-        String query = "select * from teacherInfo where Email=\""+ email + "\"";
-        Cursor cs = db.rawQuery(query, null);
-        String dbPw = cs.getString(cs.getColumnIndex("Password"));
-        if (dbPw != password) {
+        Person person = tdb.getPerson(email);
+
+        if (person == null || !password.equals(person.getPassword())) {
             //pass
             ViewGroup layout = (ViewGroup) findViewById(R.id.teacherLoginActivity);
             TextView errorMsg = new TextView(this);
@@ -73,17 +72,5 @@ public class TeacherLogin extends ActionBarActivity {
 
         Intent intent = new Intent(this, TeacherHomePage.class);
         startActivity(intent);
-
-
-        /*Cursor c = db.query(
-                "teacherInfo",  // The table to query
-                null,                               // The columns to return
-                "Email" + " = " + email,
-                selectionArgs,                            // The values for the WHERE clause
-                null,                                     // don't group the rows
-                null,                                     // don't filter by row groups
-                sortOrder                                 // The sort order
-        );*/
     }
-
 }
