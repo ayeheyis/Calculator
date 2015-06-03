@@ -1,9 +1,15 @@
 package com.example.ahadu_000.calculator;
 
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 
 public class Register extends ActionBarActivity {
@@ -34,5 +40,32 @@ public class Register extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void toTeacherLogin(View view) {
+        EditText nameEt = (EditText) findViewById(R.id.editText5);
+        EditText emailEt = (EditText) findViewById(R.id.editText6);
+        EditText passwordEt = (EditText) findViewById(R.id.editText7);
+        String name = nameEt.getText().toString();
+        String email = emailEt.getText().toString();
+        String password = passwordEt.getText().toString();
+
+        if (!(!TextUtils.isEmpty(email) &&
+                android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())) {
+            Intent intent = new Intent(this, FailedRegister.class);
+            startActivity(intent);
+            return;
+        }
+
+        TeacherDatabase tdb = new TeacherDatabase(this);
+        SQLiteDatabase db = tdb.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Name", name);
+        values.put("Email", email);
+        values.put("Password", password);
+        db.insert("teacherInfo", null, values);
+
+        Intent intent = new Intent(this, TeacherLogin.class);
+        startActivity(intent);
     }
 }

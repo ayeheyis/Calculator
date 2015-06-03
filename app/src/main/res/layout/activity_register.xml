@@ -74,5 +74,6 @@
         android:id="@+id/button4"
         android:layout_below="@+id/editText7"
         android:layout_centerHorizontal="true"
+        android:onClick="toTeacherLogin"
         android:layout_marginTop="56dp" />
 </RelativeLayout>
