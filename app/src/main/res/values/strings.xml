@@ -15,6 +15,10 @@
     <string name="password">Password</string>
     <string name="welcome">Welcome</string>
     <string name="title_activity_register">Register</string>
+    <string name="title_activity_teacher_home_page">TeacherHomePage</string>
+    <string name="createTest">Start New Test</string>
+    <string name="createCalc">Create a New Calculator</string>
+    <string name="welcomeTeacher">Welcome!</string>
 
 
 </resources>

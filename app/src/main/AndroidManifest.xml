@@ -40,6 +40,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ahadu_000.calculator.TeacherLogin" />
         </activity>
+        <activity
+            android:name=".TeacherHomePage"
+            android:label="@string/title_activity_teacher_home_page"
+            android:parentActivityName=".TeacherLogin" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ahadu_000.calculator.TeacherLogin" />
+        </activity>
     </application>
 
 </manifest>
