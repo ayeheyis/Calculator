@@ -19,6 +19,11 @@
     <string name="createTest">Start New Test</string>
     <string name="createCalc">Create a New Calculator</string>
     <string name="welcomeTeacher">Welcome!</string>
+    <string name="title_activity_choose_template">ChooseTemplate</string>
+    <string name="chooseTemplateMsg">Choose a template to get started.</string>
+    <string name="horizontalCalc">Horizontal (max. of 50 buttons)</string>
+    <string name="verticalCalc">Vertical (max. of 30 buttons)</string>
+    <string name="title_activity_horizontal_calculator">HorizontalCalculator</string>
 
 
 </resources>

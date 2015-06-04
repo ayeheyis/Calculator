@@ -48,6 +48,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ahadu_000.calculator.TeacherLogin" />
         </activity>
+        <activity
+            android:name=".ChooseTemplate"
+            android:label="@string/title_activity_choose_template"
+            android:parentActivityName=".TeacherHomePage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ahadu_000.calculator.TeacherHomePage" />
+        </activity>
+        <activity
+            android:name=".HorizontalCalculator"
+            android:label="@string/title_activity_horizontal_calculator"
+            android:parentActivityName=".ChooseTemplate" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ahadu_000.calculator.ChooseTemplate" />
+        </activity>
     </application>
 
 </manifest>
