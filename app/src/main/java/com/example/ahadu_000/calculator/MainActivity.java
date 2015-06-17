@@ -7,11 +7,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+
 
 public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "hAOCkFZz0VaSKYnycqL81qvqnikvNYMzgqaaiEva", "s6OQY79uIfRcRtenqUOYmnfGWtflcxAidEpdS7EB");
+        ParseObject testObject = new ParseObject("TestObject");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
