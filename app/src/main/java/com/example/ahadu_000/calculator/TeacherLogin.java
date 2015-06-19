@@ -74,4 +74,9 @@ public class TeacherLogin extends ActionBarActivity {
         Intent intent = new Intent(this, TeacherHomePage.class);
         startActivity(intent);
     }
+
+    public void toResetPage(View view) {
+        Intent intent = new Intent(this, ResetPassword.class);
+        startActivity(intent);
+    }
 }

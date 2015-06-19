@@ -54,18 +54,36 @@
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:id="@+id/teacherLoginButton"
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/editText4"
-        android:layout_centerHorizontal="true"
-        android:onClick="toTeacherHomePage"/>
+        android:onClick="toTeacherHomePage"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register"
         android:id="@+id/registerButton"
-        android:layout_marginBottom="52dp"
+        android:onClick="toRegister"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="toRegister"/>
+        android:layout_alignLeft="@+id/editText4"
+        android:layout_alignStart="@+id/editText4" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/registerMsg"
+        android:id="@+id/textView11"
+        android:layout_above="@+id/registerButton"
+        android:layout_alignLeft="@+id/button10"
+        android:layout_alignStart="@+id/button10" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot"
+        android:id="@+id/button10"
+        android:onClick="toResetPage"
+        android:layout_below="@+id/teacherLoginButton"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

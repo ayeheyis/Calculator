@@ -7,6 +7,9 @@
     <string name="title_activity_teacher_login">TeacherLogin</string>
     <string name="startTest">Begin the Test</string>
     <string name="login">Log In</string>
+    <string name="reset">Reset</string>
+    <string name="registerMsg">Don\'t have an account yet?</string>
+    <string name="forgot">Forgot Password</string>
     <string name="logout">Log Out</string>
     <string name="name">Name</string>
     <string name="testId">Test ID</string>
@@ -25,6 +28,7 @@
     <string name="horizontalCalc">Horizontal (max. of 50 buttons)</string>
     <string name="verticalCalc">Vertical (max. of 30 buttons)</string>
     <string name="title_activity_horizontal_calculator">HorizontalCalculator</string>
+    <string name="title_activity_reset_password">ResetPassword</string>
 
 
 </resources>
