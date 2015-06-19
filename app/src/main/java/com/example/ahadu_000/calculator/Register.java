@@ -14,6 +14,11 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
+
 
 public class Register extends ActionBarActivity {
 
@@ -52,21 +57,36 @@ public class Register extends ActionBarActivity {
         String name = nameEt.getText().toString();
         String email = emailEt.getText().toString();
         String password = passwordEt.getText().toString();
-        Person person = new Person(name, email, password);
+
         if (!(!TextUtils.isEmpty(email) &&
                 android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())) {
-            ViewGroup layout = (ViewGroup) findViewById(R.id.registerActivity);
-            TextView errorMsg = new TextView(this);
-            errorMsg.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
-            errorMsg.setText("Incorrect Info");
-            layout.addView(errorMsg);
-            return;
+            displayError();
         }
-        //connect to database and add person
 
-        TeacherDatabase tdb = new TeacherDatabase(this);
-        tdb.addPerson(person);
+        ParseUser user = new ParseUser();
+        user.setUsername(name);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.signUpInBackground(new SignUpCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+                    startTeacherPage();
+                } else {
+                    displayError();
+                }
+            }
+        });
+    }
 
+    private void displayError() {
+        ViewGroup layout = (ViewGroup) findViewById(R.id.registerActivity);
+        TextView errorMsg = new TextView(this);
+        errorMsg.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+        errorMsg.setText("Incorrect Info");
+        layout.addView(errorMsg);
+    }
+
+    private void startTeacherPage() {
         Intent intent = new Intent(this, TeacherLogin.class);
         startActivity(intent);
     }

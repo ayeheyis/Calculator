@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.parse.ParseUser;
+
 
 public class TeacherHomePage extends ActionBarActivity {
 
@@ -40,6 +42,12 @@ public class TeacherHomePage extends ActionBarActivity {
 
     public void toChooseTemplate(View view) {
         Intent intent = new Intent(this, ChooseTemplate.class);
+        startActivity(intent);
+    }
+
+    public void logout(View view) {
+        ParseUser.logOut();
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }

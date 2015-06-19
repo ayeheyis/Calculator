@@ -9,17 +9,19 @@ import android.view.View;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 
 public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "hAOCkFZz0VaSKYnycqL81qvqnikvNYMzgqaaiEva", "s6OQY79uIfRcRtenqUOYmnfGWtflcxAidEpdS7EB");
-        ParseObject testObject = new ParseObject("TestObject");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            toTeacherHomePage();
+        }
     }
 
     @Override
@@ -51,6 +53,11 @@ public class MainActivity extends ActionBarActivity {
 
     public void toStudentLogin(View view) {
         Intent intent = new Intent(this, StudentLogin.class);
+        startActivity(intent);
+    }
+
+    private void toTeacherHomePage() {
+        Intent intent = new Intent(this, TeacherHomePage.class);
         startActivity(intent);
     }
 }

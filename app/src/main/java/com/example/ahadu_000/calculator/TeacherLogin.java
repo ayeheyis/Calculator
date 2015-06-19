@@ -13,6 +13,10 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+
 
 public class TeacherLogin extends ActionBarActivity {
 
@@ -50,26 +54,23 @@ public class TeacherLogin extends ActionBarActivity {
     }
 
     public void toTeacherHomePage(View view) {
-        EditText emailEt = (EditText) findViewById(R.id.editText3);
-        String email = emailEt.getText().toString();
+        EditText nameEt = (EditText) findViewById(R.id.editText3);
+        String name = nameEt.getText().toString();
         EditText passwordEt = (EditText) findViewById(R.id.editText4);
         String password = passwordEt.getText().toString();
 
-        TeacherDatabase tdb = new TeacherDatabase(this);
-        Person person = tdb.getPerson(email);
+        ParseUser.logInInBackground(name, password, new LogInCallback() {
+            public void done(ParseUser user, ParseException e) {
+                if (user != null) {
+                    toTeacherHomePage();
+                } else {
+                    // Signup failed. Look at the ParseException to see what happened.
+                }
+            }
+        });
+    }
 
-        if (person == null || !password.equals(person.getPassword())) {
-            //pass
-            ViewGroup layout = (ViewGroup) findViewById(R.id.teacherLoginActivity);
-            TextView errorMsg = new TextView(this);
-            errorMsg.setLayoutParams(new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT));
-            errorMsg.setText("Incorrect Info");
-            layout.addView(errorMsg);
-            return;
-        }
-
+    private void toTeacherHomePage() {
         Intent intent = new Intent(this, TeacherHomePage.class);
         startActivity(intent);
     }

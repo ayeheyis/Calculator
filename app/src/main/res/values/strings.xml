@@ -6,7 +6,8 @@
     <string name="title_activity_student_login">StudentLogin</string>
     <string name="title_activity_teacher_login">TeacherLogin</string>
     <string name="startTest">Begin the Test</string>
-    <string name="login">Log in</string>
+    <string name="login">Log In</string>
+    <string name="logout">Log Out</string>
     <string name="name">Name</string>
     <string name="testId">Test ID</string>
     <string name="studentInfoReq">Log in below in order to start the test</string>
