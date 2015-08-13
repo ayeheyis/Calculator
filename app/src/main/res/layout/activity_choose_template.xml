@@ -25,7 +25,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/textView10"
-        android:layout_alignEnd="@+id/textView10" />
+        android:layout_alignEnd="@+id/textView10"
+        android:onClick="toHorizontalCalculator"/>
 
     <Button
         android:layout_width="wrap_content"

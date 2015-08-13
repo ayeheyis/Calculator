@@ -1,9 +1,11 @@
 package com.example.ahadu_000.calculator;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class ChooseTemplate extends ActionBarActivity {
@@ -34,5 +36,10 @@ public class ChooseTemplate extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void toHorizontalCalculator(View view) {
+        Intent intent = new Intent(this, HorizontalCalculator.class);
+        startActivity(intent);
     }
 }
