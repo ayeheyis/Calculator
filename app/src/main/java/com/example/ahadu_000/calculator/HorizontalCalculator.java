@@ -33,7 +33,7 @@ public class HorizontalCalculator extends ActionBarActivity {
         RelativeLayout mainLayout = new RelativeLayout(HorizontalCalculator.this);
         mainLayout.setId(mainLayout.generateViewId());
 
-        /* ToggleButton changeButton = new ToggleButton(this);
+        ToggleButton changeButton = new ToggleButton(this);
         changeButton.setText("Change Button");
         changeButton.setTextOff("Change Button");
         changeButton.setTextOn("Change Button");
@@ -44,7 +44,7 @@ public class HorizontalCalculator extends ActionBarActivity {
         ablp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         ablp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         changeButton.setLayoutParams(ablp);
-        mainLayout.addView(changeButton); */
+        mainLayout.addView(changeButton);
 
         GridLayout gl = new GridLayout(mainLayout.getContext());
         RelativeLayout.LayoutParams gllp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
