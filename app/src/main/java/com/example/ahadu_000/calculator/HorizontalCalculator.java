@@ -49,7 +49,7 @@ public class HorizontalCalculator extends ActionBarActivity {
         GridLayout gl = new GridLayout(mainLayout.getContext());
         RelativeLayout.LayoutParams gllp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        gllp.addRule(RelativeLayout.ALIGN_BOTTOM, changeButton.getId());
+        gllp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         gl.setLayoutParams(gllp);
         gl.setId(gl.generateViewId());
         gl.setColumnCount(initCols);
@@ -65,14 +65,14 @@ public class HorizontalCalculator extends ActionBarActivity {
             myButtons[i] = new Button(this);
             myButtons[i].setText("");
             //myButtons[i].setWidth(screenWidth / initCols);
-            gl.addView(myButtons[i]);
+            gl.addView(myButtons[i], screenWidth / initCols, myButtons[i].getMinimumHeight());
         }
         for (int i = totButtons - textCount; i < totButtons; i++) {
             myButtons[i] = new Button(this);
             myButtons[i].setText(myTexts[i - (totButtons - textCount)]);
             myButtons[i].setGravity(Gravity.CENTER);
             //myButtons[i].setWidth(screenWidth / initCols);
-            gl.addView(myButtons[i]);
+            gl.addView(myButtons[i], screenWidth / initCols, myButtons[i].getMinimumHeight());
         }
 
         mainLayout.addView(gl);

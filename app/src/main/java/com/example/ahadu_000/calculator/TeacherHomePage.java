@@ -45,6 +45,11 @@ public class TeacherHomePage extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void toStartNewTest(View view) {
+        Intent intent = new Intent(this, StartNewTest.class);
+        startActivity(intent);
+    }
+
     public void logout(View view) {
         ParseUser.logOut();
         Intent intent = new Intent(this, MainActivity.class);

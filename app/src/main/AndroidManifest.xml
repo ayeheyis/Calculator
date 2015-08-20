@@ -76,6 +76,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ahadu_000.calculator.TeacherLogin" />
         </activity>
+        <activity
+            android:name=".StartNewTest"
+            android:label="@string/title_activity_start_new_test"
+            android:parentActivityName=".TeacherHomePage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ahadu_000.calculator.TeacherHomePage" />
+        </activity>
     </application>
 
 </manifest>

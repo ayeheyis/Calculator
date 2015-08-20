@@ -58,16 +58,17 @@ public class TeacherLogin extends ActionBarActivity {
         String name = nameEt.getText().toString();
         EditText passwordEt = (EditText) findViewById(R.id.editText4);
         String password = passwordEt.getText().toString();
-
         ParseUser.logInInBackground(name, password, new LogInCallback() {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
                     toTeacherHomePage();
+                    return;
                 } else {
-                    // Signup failed. Look at the ParseException to see what happened.
                 }
             }
         });
+        nameEt.setText("");
+        passwordEt.setText("");
     }
 
     private void toTeacherHomePage() {

@@ -29,6 +29,8 @@
     <string name="verticalCalc">Vertical (max. of 30 buttons)</string>
     <string name="title_activity_horizontal_calculator">HorizontalCalculator</string>
     <string name="title_activity_reset_password">ResetPassword</string>
+    <string name="teacher">Teacher</string>
+    <string name="title_activity_start_new_test">StartNewTest</string>
 
 
 </resources>
