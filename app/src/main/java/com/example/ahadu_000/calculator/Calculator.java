@@ -19,12 +19,12 @@ public class Calculator{
     private List<String> functions;
     private int size;
 
-    public Calculator(String n, String t, List<String> f) {
+    public Calculator(String n, String t, List<String> f, String p) {
         name = n;
         teacher = t;
         functions = f;
         size = f.size();
-        password = "";
+        password = p;
     }
 
     public void resetPassword() {
@@ -32,7 +32,7 @@ public class Calculator{
     }
 
     public void setPassword(String p) {
-        p = password;
+        p = new String(password);
     }
 
     public String getPassword() {
@@ -60,6 +60,7 @@ public class Calculator{
         calculator.put("Name", name);
         calculator.put("Teacher", teacher);
         calculator.put("Size", size);
+        calculator.put("Password", password);
         calculator.addAll("Functions", functions);
         return calculator;
     }

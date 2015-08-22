@@ -48,7 +48,7 @@ public class ParseUtil {
         String teacher = parseObject.getString("Teacher");
         String password = parseObject.getString("Password");
         List<String> functions = (List<String>) parseObject.get("Functions");
-        Calculator calc = new Calculator(name, teacher, functions);
+        Calculator calc = new Calculator(name, teacher, functions, password);
         calc.setPassword(password);
         return calc;
     }

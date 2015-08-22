@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,21 +53,36 @@ public class StudentLogin extends Activity {
     }
 
     public void toCalculatorPage(View view) {
+        //Get string values from text field
         EditText teacherEt = (EditText) findViewById(R.id.editText);
         String teacher = teacherEt.getText().toString();
-        EditText nameEt = (EditText) findViewById(R.id.editText9);
+        EditText calculatorNameEt = (EditText) findViewById(R.id.editText9);
+        String calculatorName = calculatorNameEt.getText().toString();
+        EditText passwordEt = (EditText) findViewById(R.id.editText10);
+        String password = passwordEt.getText().toString();
+        EditText nameEt = (EditText) findViewById(R.id.editText2);
         String name = nameEt.getText().toString();
-        EditText testEt = (EditText) findViewById(R.id.editText2);
-        String test = nameEt.getText().toString();
-        ParseObject parseObject = parseUtil.getParseObject("Calculator", "Teacher", teacher, name);
+
+        //Get calculator for student
+        Log.d("Teacher", teacher);
+        Log.d("Calculator", calculatorName);
+        Log.d("Password", password);
+        Log.d("Name", name);
+        ParseObject parseObject = parseUtil.getParseObject("Calculator", "Teacher", teacher, calculatorName);
         Calculator calculator = parseUtil.convertToCalculator(parseObject);
-        if(calculator != null) {
+
+        //Show student as logged in
+
+        //Take student to calculator
+        String calcPass = calculator.getPassword();
+        if(calculator != null && password.equals(calcPass) && !("".equals(calcPass))) {
             toCalculatorPage();
             return;
         }
         teacherEt.setText("");
+        calculatorNameEt.setText("");
+        passwordEt.setText("");
         nameEt.setText("");
-        testEt.setText("");
     }
 
 

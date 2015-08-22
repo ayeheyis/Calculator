@@ -27,7 +27,7 @@ public class Calculators implements FindCallback<ParseObject> {
             String teacher = p.getString("Teacher");
             String password = p.getString("Password");
             List<String> functions = (List<String>) p.get("Functions");
-            Calculator calc = new Calculator(name, teacher, functions);
+            Calculator calc = new Calculator(name, teacher, functions, password);
             calculators.add(calc);
         }
     }

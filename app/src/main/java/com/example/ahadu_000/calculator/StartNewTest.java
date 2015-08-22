@@ -1,13 +1,19 @@
 package com.example.ahadu_000.calculator;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.util.Log;
 import android.view.MenuItem;
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -22,28 +28,25 @@ public class StartNewTest extends Activity {
     private String[] stringArray ;
     private ArrayAdapter calcNameAdapter;
     private ParseUtil parseUtil;
-
-    private void setStringArray(List<Calculator> calcs) {
-        int size = calcs.size();
-        stringArray = new String[size];
-        for(int i = 0; i < size; i++) {
-            stringArray[i] = calcs.get(i).getName();
-        }
-    }
-
+    private List<ParseObject> parseObjects;
+    private CalculatorActionListener calculatorActionListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        parseUtil = new ParseUtil();
         setContentView(R.layout.activity_start_new_test);
+
+        parseUtil = new ParseUtil();
         ParseUser currentUser = ParseUser.getCurrentUser();
-        List<ParseObject> parseObjects = parseUtil.getParseObjects("Calculator", "Teacher", currentUser.getUsername());
+        parseObjects = parseUtil.getParseObjects("Calculator", "Teacher", currentUser.getUsername());
         List<Calculator> calcs = parseUtil.convertToCalculator(parseObjects);
+        calculatorActionListener = new CalculatorActionListener(calcs, this);
+
         setStringArray(calcs);
         calcNameAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, stringArray);
         calcListView = (ListView) findViewById(R.id.listView);
         calcListView.setAdapter(calcNameAdapter);
+        calcListView.setOnItemClickListener(calculatorActionListener);
     }
 
 
@@ -67,5 +70,23 @@ public class StartNewTest extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setStringArray(List<Calculator> calcs) {
+        int size = calcs.size();
+        stringArray = new String[size];
+        for(int i = 0; i < size; i++) {
+            stringArray[i] = calcs.get(i).getName();
+        }
+    }
+
+    public void updateObject(Calculator calculator, String password) {
+        for(ParseObject parseObject : parseObjects) {
+            if(parseObject.getString("Name").equals(calculator.getName())) {
+                parseObject.put("Password", password);
+                parseObject.saveInBackground();
+                return;
+            }
+        }
     }
 }

@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/name"
+        android:text="@string/calculator"
         android:id="@+id/testView2"
         android:layout_alignBottom="@+id/editText9"
         android:layout_alignParentStart="true" />
@@ -44,9 +44,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/testId"
         android:id="@+id/textView3"
-        android:layout_alignBaseline="@+id/editText2"
-        android:layout_alignBottom="@+id/editText2"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/textView15"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -84,5 +84,23 @@
         android:id="@+id/textView14"
         android:layout_alignBottom="@+id/editText"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/name"
+        android:id="@+id/textView15"
+        android:layout_above="@+id/button"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editText10"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_alignStart="@+id/editText2" />
 
 </RelativeLayout>
