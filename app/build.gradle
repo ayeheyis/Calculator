@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.parse.bolts:bolts-android:1.2.0'
     compile files('app/Parse-1.9.2.jar')
+    compile 'net.sourceforge.jeval:jeval:0.9.4'
 }

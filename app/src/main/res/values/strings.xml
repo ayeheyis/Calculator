@@ -32,6 +32,11 @@
     <string name="teacher">Teacher</string>
     <string name="calculator">Calculator</string>
     <string name="title_activity_start_new_test">StartNewTest</string>
+    <string name="title_activity_edit_button_page">EditButtonPage</string>
+    <string name="pickButtonText">Choose a new text for your button</string>
+    <string name="equation">f(x) = </string>
+    <string name="functionName">Function Name: </string>
+
 
 
 </resources>

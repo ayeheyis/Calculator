@@ -20,9 +20,10 @@ public class ParseUtil {
 
     /**
      * Returns a list of parse objects where the value of the key 'key' equals 'match'
+     *
      * @param objectName The name of the object class
-     * @param key A key from a key-value pair from the object
-     * @param match A value from a key-value pair
+     * @param key        A key from a key-value pair from the object
+     * @param match      A value from a key-value pair
      * @return A list of parse objects
      */
     public List<ParseObject> getParseObjects(String objectName, String key, String match) {
@@ -40,20 +41,21 @@ public class ParseUtil {
 
     /**
      * Returns a parse object who has name 'name' and the value for the key 'key' equals 'match'
+     *
      * @param objectName The name of the object class
-     * @param key A key from a key-value pair from the object
-     * @param match A value from a key-value pair
-     * @param name The name of the specific object
+     * @param key        A key from a key-value pair from the object
+     * @param match      A value from a key-value pair
+     * @param name       The name of the specific object
      * @return A parse object
      */
     public ParseObject getParseObject(String objectName, String key, String match, String name) {
         List<ParseObject> parseObjects = getParseObjects(objectName, key, match);
-        if(parseObjects == null) {
+        if (parseObjects == null) {
             Log.d("Error", "ParseUtil->getParseObject->parse object is null");
             return null;
         }
-        for(ParseObject parseObject : parseObjects) {
-            if(name.equals(parseObject.getString(NAME))) {
+        for (ParseObject parseObject : parseObjects) {
+            if (name.equals(parseObject.getString(NAME))) {
                 return parseObject;
             }
         }
@@ -62,9 +64,10 @@ public class ParseUtil {
 
     /**
      * Takes in a calculator object and formats it into a parse object
+     *
      * @param calc A calculator object
      * @return A parse object
-     **/
+     */
     public ParseObject convertToParseObject(Calculator calc) {
         //Get all the data from calculator
         String name = calc.getName();
@@ -83,6 +86,7 @@ public class ParseUtil {
 
     /**
      * Takes in a parse object and formats it into a calculator object
+     *
      * @param parseObject A parse object
      * @return A calculator object
      */
@@ -100,12 +104,13 @@ public class ParseUtil {
 
     /**
      * Takes in a list of parse objects and formats it into a list of calculator objects
+     *
      * @param parseObjects A list of parse objects
      * @return A list of calculators
      */
     public List<Calculator> convertToCalculator(List<ParseObject> parseObjects) {
         List<Calculator> calculators = new ArrayList<Calculator>();
-        for(ParseObject parseObject : parseObjects) {
+        for (ParseObject parseObject : parseObjects) {
             calculators.add(convertToCalculator(parseObject));
         }
         return calculators;
