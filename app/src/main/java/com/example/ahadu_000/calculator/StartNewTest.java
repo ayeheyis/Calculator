@@ -22,7 +22,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Displays a list of the calculators owned by the teacher. Allows the teacher to create a test
+ * and share a calculator with students.
+ */
 public class StartNewTest extends Activity {
     //Fields needed to create list display
     private ListView calcListView;
