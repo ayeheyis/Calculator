@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ahadu_000 on 8/20/2015.
+ * Created by Ahadu on 8/20/2015.
  */
 public class ParseUtil {
     private static final String CALCULATOR = "Calculator";
@@ -32,6 +32,14 @@ public class ParseUtil {
         return parseObjects;
     }
 
+    /**
+     *
+     * @param objectName The name of the object
+     * @param key
+     * @param match
+     * @param name
+     * @return
+     */
     public ParseObject getParseObject(String objectName, String key, String match, String name) {
         List<ParseObject> parseObjects = getParseObjects(objectName, key, match);
         if(parseObjects == null) {
@@ -57,7 +65,6 @@ public class ParseUtil {
         String teacher = calc.getTeacher();
         String password = calc.getPassword();
         List<String> functions = calc.getFunctions();
-        List<String> operations = calc.getOperations();
 
         //Create parse object from calculator data
         ParseObject parseObject = new ParseObject(CALCULATOR);
@@ -65,7 +72,6 @@ public class ParseUtil {
         parseObject.put(TEACHER, teacher);
         parseObject.put(PASSWORD, password);
         parseObject.addAll(FUNCTIONS, functions);
-        parseObject.addAll(OPERATIONS, operations);
         return parseObject;
     }
 
@@ -79,11 +85,10 @@ public class ParseUtil {
         String name = parseObject.getString(NAME);
         String teacher = parseObject.getString(TEACHER);
         String password = parseObject.getString(PASSWORD);
-        List<String> operations = (List<String>) parseObject.get(FUNCTIONS);
         List<String> functions = (List<String>) parseObject.get(OPERATIONS);
 
         //Create calculator from parse object data
-        Calculator calc = new Calculator(name, teacher, operations, functions, password);
+        Calculator calc = new Calculator(name, teacher, functions, password);
         return calc;
     }
 

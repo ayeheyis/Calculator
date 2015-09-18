@@ -18,21 +18,18 @@ public class Calculator{
     private String name;
     private String teacher;
     private String password;
-    private List<String> operations;
     private List<String> functions;
 
-    public Calculator(String n, String t, List<String> o, List<String> f) {
+    public Calculator(String n, String t,  List<String> f) {
         name = n;
         teacher = t;
-        operations = o;
         functions = f;
         password = "";
     }
 
-    public Calculator(String n, String t, List<String> o, List<String> f, String p) {
+    public Calculator(String n, String t, List<String> f, String p) {
         name = n;
         teacher = t;
-        operations = o;
         functions = f;
         password = p;
     }
@@ -59,9 +56,5 @@ public class Calculator{
 
     public List<String> getFunctions() {
         return functions;
-    }
-
-    public List<String> getOperations() {
-        return operations;
     }
 }
