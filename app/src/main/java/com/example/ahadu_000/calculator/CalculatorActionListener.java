@@ -23,6 +23,11 @@ public class CalculatorActionListener implements AdapterView.OnItemClickListener
     private static final String SUBMIT = "Submit";
     private static final String CANCEL = "Cancel";
 
+    /**
+     * Constructor
+     * @param c a list of calculators
+     * @param s the start new test activity
+     */
     public CalculatorActionListener(List<Calculator> c, StartNewTest s) {
         calculators = c;
         startNewTest = s;

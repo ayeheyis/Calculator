@@ -1,8 +1,6 @@
 package com.example.ahadu_000.calculator;
 
 import android.util.Log;
-
-import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import java.util.ArrayList;
@@ -10,6 +8,7 @@ import java.util.List;
 
 /**
  * Created by Ahadu on 8/20/2015.
+ * Utility class that handles parse requests.
  */
 public class ParseUtil {
     private static final String CALCULATOR = "Calculator";
@@ -19,6 +18,13 @@ public class ParseUtil {
     private static final String FUNCTIONS = "Functions";
     private static final String OPERATIONS = "Operations";
 
+    /**
+     * Returns a list of parse objects where the value of the key 'key' equals 'match'
+     * @param objectName The name of the object class
+     * @param key A key from a key-value pair from the object
+     * @param match A value from a key-value pair
+     * @return A list of parse objects
+     */
     public List<ParseObject> getParseObjects(String objectName, String key, String match) {
         List<ParseObject> parseObjects = null;
         ParseQuery<ParseObject> query = ParseQuery.getQuery(objectName);
@@ -26,28 +32,28 @@ public class ParseUtil {
         try {
             parseObjects = query.find();
         } catch (com.parse.ParseException e) {
-            Log.d("Error", "Exception in Get Parse Objects");
+            Log.d("Error", "ParseUtil->getParseObjects->exception raised");
             return null;
         }
         return parseObjects;
     }
 
     /**
-     *
-     * @param objectName The name of the object
-     * @param key
-     * @param match
-     * @param name
-     * @return
+     * Returns a parse object who has name 'name' and the value for the key 'key' equals 'match'
+     * @param objectName The name of the object class
+     * @param key A key from a key-value pair from the object
+     * @param match A value from a key-value pair
+     * @param name The name of the specific object
+     * @return A parse object
      */
     public ParseObject getParseObject(String objectName, String key, String match, String name) {
         List<ParseObject> parseObjects = getParseObjects(objectName, key, match);
         if(parseObjects == null) {
-            Log.d("Error", "Null");
+            Log.d("Error", "ParseUtil->getParseObject->parse object is null");
             return null;
         }
         for(ParseObject parseObject : parseObjects) {
-            if(name.equals(parseObject.getString("Name"))) {
+            if(name.equals(parseObject.getString(NAME))) {
                 return parseObject;
             }
         }
