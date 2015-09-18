@@ -76,6 +76,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ahadu_000.calculator.TeacherLogin" />
         </activity>
+        <activity
+            android:name=".EditButtonPage"
+            android:label="@string/title_activity_edit_button_page"
+            android:parentActivityName=".HorizontalCalculator" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ahadu_000.calculator.HorizontalCalculator" />
+        </activity>
     </application>
 
 </manifest>
