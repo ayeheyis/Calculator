@@ -10,20 +10,30 @@ import com.parse.ParseObject;
 import java.util.List;
 
 /**
- * Created by ahadu on 8/18/2015.
+ * Created by Ahadu on 8/18/2015.
+ * An object used to represent a calculator. Contains operations, customized functions, and
+ * identifiers.
  */
 public class Calculator{
     private String name;
     private String teacher;
     private String password;
+    private List<String> operations;
     private List<String> functions;
-    private int size;
 
-    public Calculator(String n, String t, List<String> f, String p) {
+    public Calculator(String n, String t, List<String> o, List<String> f) {
         name = n;
         teacher = t;
+        operations = o;
         functions = f;
-        size = f.size();
+        password = "";
+    }
+
+    public Calculator(String n, String t, List<String> o, List<String> f, String p) {
+        name = n;
+        teacher = t;
+        operations = o;
+        functions = f;
         password = p;
     }
 
@@ -39,10 +49,6 @@ public class Calculator{
         return password;
     }
 
-    public int getSize() {
-        return size;
-    }
-
     public String getName() {
         return name;
     }
@@ -55,13 +61,7 @@ public class Calculator{
         return functions;
     }
 
-    public ParseObject getParseObject() {
-        ParseObject calculator = new ParseObject("Calculator");
-        calculator.put("Name", name);
-        calculator.put("Teacher", teacher);
-        calculator.put("Size", size);
-        calculator.put("Password", password);
-        calculator.addAll("Functions", functions);
-        return calculator;
+    public List<String> getOperations() {
+        return operations;
     }
 }

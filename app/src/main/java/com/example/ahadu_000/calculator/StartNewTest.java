@@ -24,12 +24,19 @@ import java.util.List;
 
 
 public class StartNewTest extends Activity {
+    //Fields needed to create list display
     private ListView calcListView;
     private String[] stringArray ;
     private ArrayAdapter calcNameAdapter;
     private ParseUtil parseUtil;
     private List<ParseObject> parseObjects;
     private CalculatorActionListener calculatorActionListener;
+
+    //Fields for strings
+    private static final String CALCULATOR = "Calculator";
+    private static final String NAME = "Name";
+    private static final String TEACHER = "Teacher";
+    private static final String PASSWORD = "Password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +45,7 @@ public class StartNewTest extends Activity {
 
         parseUtil = new ParseUtil();
         ParseUser currentUser = ParseUser.getCurrentUser();
-        parseObjects = parseUtil.getParseObjects("Calculator", "Teacher", currentUser.getUsername());
+        parseObjects = parseUtil.getParseObjects(CALCULATOR, TEACHER, currentUser.getUsername());
         List<Calculator> calcs = parseUtil.convertToCalculator(parseObjects);
         calculatorActionListener = new CalculatorActionListener(calcs, this);
 
@@ -82,8 +89,8 @@ public class StartNewTest extends Activity {
 
     public void updateObject(Calculator calculator, String password) {
         for(ParseObject parseObject : parseObjects) {
-            if(parseObject.getString("Name").equals(calculator.getName())) {
-                parseObject.put("Password", password);
+            if(parseObject.getString(NAME).equals(calculator.getName())) {
+                parseObject.put(PASSWORD, password);
                 parseObject.saveInBackground();
                 return;
             }

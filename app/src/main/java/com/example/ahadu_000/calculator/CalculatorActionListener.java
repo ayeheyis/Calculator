@@ -10,12 +10,18 @@ import android.widget.EditText;
 import java.util.List;
 
 /**
- * Created by ahadu_000 on 8/21/2015.
+ * Created by Ahadu on 8/21/2015.
+ *An action listener for the list of calculators in the Start New Test page.
  */
 public class CalculatorActionListener implements AdapterView.OnItemClickListener{
     private List<Calculator> calculators;
     private Calculator calculator;
     private StartNewTest startNewTest;
+
+    private static final String TEST = "Test";
+    private static final String MESSAGE = "Choose a password for the test";
+    private static final String SUBMIT = "Submit";
+    private static final String CANCEL = "Cancel";
 
     public CalculatorActionListener(List<Calculator> c, StartNewTest s) {
         calculators = c;
@@ -36,10 +42,10 @@ public class CalculatorActionListener implements AdapterView.OnItemClickListener
     private void startDialogBox() {
         final EditText text = new EditText(startNewTest);
         new AlertDialog.Builder(startNewTest)
-                .setTitle("Test")
-                .setMessage("Choose a password for the test")
+                .setTitle(TEST)
+                .setMessage(MESSAGE)
                 .setView(text)
-                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                .setPositiveButton(SUBMIT, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String password = text.getText().toString();
                         setPassword(password);
@@ -47,7 +53,7 @@ public class CalculatorActionListener implements AdapterView.OnItemClickListener
                         startNewTest.startActivity(intent);
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(CANCEL, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                     }
                 })
