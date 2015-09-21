@@ -82,6 +82,10 @@ public class StartNewTest extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Gets a list of calculators, 'calcs', and adds there name to a list of strings.
+     * @param calcs A list of calculator object
+     */
     private void setStringArray(List<Calculator> calcs) {
         int size = calcs.size();
         stringArray = new String[size];
@@ -90,6 +94,11 @@ public class StartNewTest extends Activity {
         }
     }
 
+    /**
+     * Sets the password field of the 'calculator' to 'password'
+     * @param calculator A calculator object
+     * @param password A password
+     */
     public void updateObject(Calculator calculator, String password) {
         for(ParseObject parseObject : parseObjects) {
             if(parseObject.getString(NAME).equals(calculator.getName())) {
