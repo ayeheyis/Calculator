@@ -3,10 +3,15 @@ package com.example.ahadu_000.calculator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,11 +22,15 @@ public class CalculatorActionListener implements AdapterView.OnItemClickListener
     private List<Calculator> calculators;
     private Calculator calculator;
     private StartNewTest startNewTest;
+    private String teacher;
+    private ParseUtil parseUtil;
 
     private static final String TEST = "Test";
     private static final String MESSAGE = "Choose a password for the test";
     private static final String SUBMIT = "Submit";
     private static final String CANCEL = "Cancel";
+    private static final String TEACHER = "Teacher";
+    private static final String NAME = "Name";
 
     /**
      * Constructor
@@ -31,6 +40,9 @@ public class CalculatorActionListener implements AdapterView.OnItemClickListener
     public CalculatorActionListener(List<Calculator> c, StartNewTest s) {
         calculators = c;
         startNewTest = s;
+        ParseUser user = ParseUser.getCurrentUser();
+        teacher = user.getUsername();
+        parseUtil = new ParseUtil();
     }
 
     @Override
@@ -54,7 +66,12 @@ public class CalculatorActionListener implements AdapterView.OnItemClickListener
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String password = text.getText().toString();
                         setPassword(password);
-                        Intent intent = new Intent(startNewTest, TeacherHomePage.class);
+                        parseUtil.createTest(teacher, calculator.getName());
+                        Intent intent = new Intent(startNewTest, TestSession.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString(TEACHER, teacher);
+                        bundle.putString(NAME, calculator.getName());
+                        intent.putExtras(bundle);
                         startNewTest.startActivity(intent);
                     }
                 })
@@ -69,3 +86,5 @@ public class CalculatorActionListener implements AdapterView.OnItemClickListener
         startNewTest.updateObject(calculator, password);
     }
 }
+
+

@@ -92,6 +92,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ahadu_000.calculator.HorizontalCalculator" />
         </activity>
+        <activity
+            android:name=".example"
+            android:label="@string/title_activity_example"
+            android:parentActivityName=".StudentLogin" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ahadu_000.calculator.StudentLogin" />
+        </activity>
+        <activity
+            android:name=".TestSession"
+            android:label="@string/title_activity_test_session"
+            android:parentActivityName=".StartNewTest" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ahadu_000.calculator.StartNewTest" />
+        </activity>
     </application>
 
 </manifest>

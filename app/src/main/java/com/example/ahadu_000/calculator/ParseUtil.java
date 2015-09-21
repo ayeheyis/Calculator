@@ -11,12 +11,14 @@ import java.util.List;
  * Utility class that handles parse requests.
  */
 public class ParseUtil {
-    private static final String CALCULATOR = "Calculator";
+    private static final String TEST = "Test";
     private static final String NAME = "Name";
     private static final String TEACHER = "Teacher";
     private static final String PASSWORD = "Password";
+    private static final String STUDENTS = "Students";
     private static final String FUNCTIONS = "Functions";
     private static final String OPERATIONS = "Operations";
+    private static final String CALCULATOR = "Calculator";
 
     /**
      * Returns a list of parse objects where the value of the key 'key' equals 'match'
@@ -27,7 +29,7 @@ public class ParseUtil {
      * @return A list of parse objects
      */
     public List<ParseObject> getParseObjects(String objectName, String key, String match) {
-        List<ParseObject> parseObjects = null;
+        List<ParseObject> parseObjects;
         ParseQuery<ParseObject> query = ParseQuery.getQuery(objectName);
         query.whereEqualTo(key, match);
         try {
@@ -55,6 +57,7 @@ public class ParseUtil {
             return null;
         }
         for (ParseObject parseObject : parseObjects) {
+            Log.d("Name", parseObject.getString(NAME));
             if (name.equals(parseObject.getString(NAME))) {
                 return parseObject;
             }
@@ -92,6 +95,7 @@ public class ParseUtil {
      */
     public Calculator convertToCalculator(ParseObject parseObject) {
         //Get data from parse object
+        if(parseObject == null) return null;
         String name = parseObject.getString(NAME);
         String teacher = parseObject.getString(TEACHER);
         String password = parseObject.getString(PASSWORD);
@@ -109,10 +113,28 @@ public class ParseUtil {
      * @return A list of calculators
      */
     public List<Calculator> convertToCalculator(List<ParseObject> parseObjects) {
+        if(parseObjects == null) return null;
         List<Calculator> calculators = new ArrayList<Calculator>();
         for (ParseObject parseObject : parseObjects) {
             calculators.add(convertToCalculator(parseObject));
         }
         return calculators;
     }
+
+    /**
+     * Takes in a teacher and a name and creates a test sessions under the teacher name
+     * where students can log in.
+     * @param teacher A teacher
+     * @param name The name of the calculator
+     */
+    public void createTest(String teacher, String name) {
+        List<String> students = new ArrayList<String>();
+        ParseObject parseObject = new ParseObject(TEST);
+        parseObject.put(TEACHER, teacher);
+        parseObject.put(STUDENTS, students);
+        parseObject.put(NAME, name);
+        parseObject.saveInBackground();
+    }
+
+
 }
