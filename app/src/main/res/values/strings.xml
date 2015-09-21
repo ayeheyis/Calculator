@@ -36,6 +36,8 @@
     <string name="pickButtonText">Choose a new text for your button</string>
     <string name="equation">f(x) = </string>
     <string name="functionName">Function Name: </string>
+    <string name="title_activity_example">example</string>
+    <string name="title_activity_test_session">TestSession</string>
 
 
 
