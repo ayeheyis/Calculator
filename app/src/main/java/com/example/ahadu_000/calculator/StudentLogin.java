@@ -22,6 +22,10 @@ import java.util.List;
 
 public class StudentLogin extends Activity {
     private ParseUtil parseUtil;
+    private static final String NAME = "Name";
+    private static final String TEACHER = "Teacher";
+    private static final String PASSWORD = "Password";
+    private static final String CALCULATOR = "Calculator";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,11 @@ public class StudentLogin extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Checks the inputs of the user and if correct sends user to the calculator page. Otherwise,
+     * it remains on the same page.
+     * @param view A view
+     */
     public void toCalculatorPage(View view) {
         //Get string values from text field
         EditText teacherEt = (EditText) findViewById(R.id.editText);
@@ -63,31 +72,54 @@ public class StudentLogin extends Activity {
         EditText nameEt = (EditText) findViewById(R.id.editText2);
         String name = nameEt.getText().toString();
 
-        //Get calculator for student
-        Log.d("Teacher", teacher);
-        Log.d("Calculator", calculatorName);
-        Log.d("Password", password);
-        Log.d("Name", name);
-        ParseObject parseObject = parseUtil.getParseObject("Calculator", "Teacher", teacher, calculatorName);
+        //Validate user inputs
+        ParseObject parseObject = parseUtil.getParseObject(CALCULATOR, TEACHER, teacher, calculatorName);
         Calculator calculator = parseUtil.convertToCalculator(parseObject);
-
-        //Show student as logged in
-
-        //Take student to calculator
-        String calcPass = calculator.getPassword();
-        if(calculator != null && password.equals(calcPass) && !("".equals(calcPass))) {
-            toCalculatorPage();
-            return;
+        if(validatePassword(calculator, password)) {
+            if(loginStudent(teacher, name, calculatorName)) toCalculatorPage();
         }
         teacherEt.setText("");
-        calculatorNameEt.setText("");
         passwordEt.setText("");
         nameEt.setText("");
+        calculatorNameEt.setText("");
     }
 
+    /**
+     * Checks if the student picked a calculator that matches the password that the student gives.
+     * @param calculator A calculator
+     * @param password A password
+     * @return True if the calculator's password matches the password.
+     */
+    private boolean validatePassword(Calculator calculator, String password) {
+        if(calculator == null) return false;
+        String calcPass = calculator.getPassword();
+        if("".equals(calcPass)) return false;
+        if(!password.equals(calcPass)) return false;
+        return true;
+    }
 
+    /**
+     * Sends the user to the calculator page.
+     */
     private void toCalculatorPage() {
         Intent intent = new Intent(this, HorizontalCalculator.class);
         startActivity(intent);
+    }
+
+    /**
+     * Adds the student to the list of students logged in under a calculator.
+     * @param teacher A teacher's username
+     * @param name The name of the student
+     * @param calculatorName The name of the calculator
+     * @return True if the student was logged in properly and false otherwise.
+     */
+    public boolean loginStudent(String teacher, String name, String calculatorName) {
+        ParseObject parseObject = parseUtil.getParseObject("Test", TEACHER, teacher, calculatorName);
+        if(parseObject == null) return false;
+        List<String> students = (List<String>) parseObject.get("Students");
+        students.add(name);
+        parseObject.put("Students", students);
+        parseObject.saveInBackground();
+        return true;
     }
 }
