@@ -76,7 +76,7 @@ public class StudentLogin extends Activity {
         ParseObject parseObject = parseUtil.getParseObject(CALCULATOR, TEACHER, teacher, calculatorName);
         Calculator calculator = parseUtil.convertToCalculator(parseObject);
         if(validatePassword(calculator, password)) {
-            if(loginStudent(teacher, name, calculatorName)) toCalculatorPage();
+            if(loginStudent(teacher, name, calculatorName)) toCalculatorPage(teacher, calculator, name);
         }
         teacherEt.setText("");
         passwordEt.setText("");
@@ -101,8 +101,13 @@ public class StudentLogin extends Activity {
     /**
      * Sends the user to the calculator page.
      */
-    private void toCalculatorPage() {
-        Intent intent = new Intent(this, HorizontalCalculator.class);
+    private void toCalculatorPage(String teacher, Calculator calculator, String name) {
+        Intent intent = new Intent(this, example.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(TEACHER, teacher);
+        bundle.putString("CalcName", calculator.getName());
+        bundle.putString(NAME, name);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 

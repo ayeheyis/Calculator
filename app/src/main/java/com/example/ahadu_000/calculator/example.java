@@ -2,16 +2,23 @@ package com.example.ahadu_000.calculator;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.parse.ParseObject;
+
+import java.util.List;
+
 
 public class example extends ActionBarActivity {
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_example);
+        bundle = getIntent().getExtras();
     }
 
     @Override
@@ -35,4 +42,25 @@ public class example extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ParseUtil parseUtil = new ParseUtil();
+        //Get the arguments
+        String teacher = (String) bundle.get("Teacher");
+        String name = (String) bundle.get("Name");
+        String calcName = (String) bundle.get("CalcName");
+
+        //Find the parse object using the arguments
+        ParseObject parseObject = parseUtil.getParseObject("Test", "Teacher", teacher, calcName);
+        List<String> students = (List<String>) parseObject.get("Students");
+
+        //Remove the student and update the list
+        students.remove(name);
+        parseObject.put("Students", students);
+        parseObject.saveInBackground();
+        Log.d("Pause", "Yes");
+    }
+
 }
