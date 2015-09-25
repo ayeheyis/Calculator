@@ -108,6 +108,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ahadu_000.calculator.StartNewTest" />
         </activity>
+        <activity
+            android:name=".StudentTest"
+            android:label="@string/title_activity_student_test"
+            android:parentActivityName=".StudentLogin" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ahadu_000.calculator.StudentLogin" />
+        </activity>
     </application>
 
 </manifest>

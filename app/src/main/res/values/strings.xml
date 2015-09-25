@@ -38,6 +38,7 @@
     <string name="functionName">Function Name: </string>
     <string name="title_activity_example">example</string>
     <string name="title_activity_test_session">TestSession</string>
+    <string name="title_activity_student_test">StudentTest</string>
 
 
 

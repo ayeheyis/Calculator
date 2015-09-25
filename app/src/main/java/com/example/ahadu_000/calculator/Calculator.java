@@ -17,7 +17,7 @@ public class Calculator{
 
     /**
      * Constructor
-     * @param n name of the claculator
+     * @param n name of the calculator
      * @param t name of the teacher that owns it
      * @param f a list of functions/operations of the calculator
      */

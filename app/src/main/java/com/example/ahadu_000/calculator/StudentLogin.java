@@ -102,7 +102,7 @@ public class StudentLogin extends Activity {
      * Sends the user to the calculator page.
      */
     private void toCalculatorPage(String teacher, Calculator calculator, String name) {
-        Intent intent = new Intent(this, example.class);
+        Intent intent = new Intent(this, StudentTest.class);
         Bundle bundle = new Bundle();
         bundle.putString(TEACHER, teacher);
         bundle.putString("CalcName", calculator.getName());
