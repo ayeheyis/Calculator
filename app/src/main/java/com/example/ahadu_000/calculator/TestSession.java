@@ -1,17 +1,20 @@
 package com.example.ahadu_000.calculator;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.parse.ParseObject;
 
 import java.util.List;
+import java.util.Timer;
 
 
 public class TestSession extends Activity {
@@ -23,11 +26,16 @@ public class TestSession extends Activity {
     private String teacherName;
     private String calcName;
     private List<String> students;
+    private List<String> exited;
+    private UpdateTestSession updateTestSession;
+    private Timer timer;
+    private ParseObject parseObject;
 
     private static final String TEST = "Test";
     private static final String STUDENTS = "Students";
     private static final String NAME = "Name";
     private static final String TEACHER = "Teacher";
+    private static final String EXITED = "Exited";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,8 @@ public class TestSession extends Activity {
         setContentView(R.layout.activity_test_session);
         bundle = getIntent().getExtras();
         init();
+        repeatedInit();
+        updateSession();
     }
 
     @Override
@@ -59,27 +69,54 @@ public class TestSession extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void init() {
+    public void init() {
         parseUtil = new ParseUtil();
         teacherName = (String) bundle.get(TEACHER);
         calcName = (String) bundle.get(NAME);
-        Log.d(TEACHER, teacherName);
+        Log.d("TestSession->Init", teacherName);
         Log.d(NAME, calcName);
-        ParseObject parseObject = parseUtil.getParseObject(TEST, TEACHER, teacherName, calcName);
-        students = (List<String>) parseObject.get(STUDENTS);
-        stringArray = getStringArray(students);
 
+        updateTestSession = new UpdateTestSession(this);
+        timer = new Timer();
+    }
+
+    public void repeatedInit() {
+        parseObject = parseUtil.getParseObject(TEST, TEACHER, teacherName, calcName);
+        students = (List<String>) parseObject.get(STUDENTS);
+        exited = (List<String>) parseObject.get(EXITED);
+
+        stringArray = getStringArray(students);
         nameAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, stringArray);
         studentListView = (ListView) findViewById(R.id.listView1);
         studentListView.setAdapter(nameAdapter);
+
+        stringArray = getStringArray(exited);
+        nameAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, stringArray);
+        studentListView = (ListView) findViewById(R.id.listView2);
+        studentListView.setAdapter(nameAdapter);
+
+
     }
 
-    private String[] getStringArray(List<String> students) {
-        int length = students.size();
+    private String[] getStringArray(List<String> list) {
+        int length = list.size();
         String[] stringArray = new String[length];
         for(int i = 0; i < length; i++) {
-            stringArray[i] = students.get(i);
+            stringArray[i] = list.get(i);
         }
         return stringArray;
+    }
+
+    public void updateSession() {
+        long delay = 0;
+        long period = 30000;
+        timer.schedule(updateTestSession, delay, period);
+    }
+
+    public void endTestSession(View view) {
+        timer.cancel();
+        parseObject.deleteInBackground();
+        Intent intent = new Intent(this, TeacherHomePage.class);
+        startActivity(intent);
     }
 }
