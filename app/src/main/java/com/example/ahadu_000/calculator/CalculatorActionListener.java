@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -71,6 +72,8 @@ public class CalculatorActionListener implements AdapterView.OnItemClickListener
                         Bundle bundle = new Bundle();
                         bundle.putString(TEACHER, teacher);
                         bundle.putString(NAME, calculator.getName());
+                        Log.d("Teacher", teacher);
+                        Log.d(NAME, calculator.getName());
                         intent.putExtras(bundle);
                         startNewTest.startActivity(intent);
                     }

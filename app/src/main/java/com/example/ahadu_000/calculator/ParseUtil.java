@@ -13,6 +13,7 @@ import java.util.List;
 public class ParseUtil {
     private static final String TEST = "Test";
     private static final String NAME = "Name";
+    private static final String EXITED = "Exited";
     private static final String TEACHER = "Teacher";
     private static final String PASSWORD = "Password";
     private static final String STUDENTS = "Students";
@@ -34,6 +35,7 @@ public class ParseUtil {
         query.whereEqualTo(key, match);
         try {
             parseObjects = query.find();
+            Log.d("getParseObjects", "Found all the parse object");
         } catch (com.parse.ParseException e) {
             Log.d("Error", "ParseUtil->getParseObjects->exception raised");
             return null;
@@ -57,7 +59,7 @@ public class ParseUtil {
             return null;
         }
         for (ParseObject parseObject : parseObjects) {
-            Log.d("Name", parseObject.getString(NAME));
+            Log.d("getParseObject", parseObject.getString(NAME));
             if (name.equals(parseObject.getString(NAME))) {
                 return parseObject;
             }
@@ -129,10 +131,12 @@ public class ParseUtil {
      */
     public void createTest(String teacher, String name) {
         List<String> students = new ArrayList<String>();
+        List<String> exited = new ArrayList<String>();
         ParseObject parseObject = new ParseObject(TEST);
         parseObject.put(TEACHER, teacher);
         parseObject.put(STUDENTS, students);
         parseObject.put(NAME, name);
+        parseObject.put(EXITED, exited);
         parseObject.saveInBackground();
     }
 

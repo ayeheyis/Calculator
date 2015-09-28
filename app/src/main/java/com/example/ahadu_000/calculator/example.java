@@ -1,10 +1,14 @@
 package com.example.ahadu_000.calculator;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.parse.ParseObject;
 
@@ -12,7 +16,12 @@ import java.util.List;
 
 
 public class example extends ActionBarActivity {
-    Bundle bundle;
+    private Bundle bundle;
+    private static final String WARNING = "Warning";
+    private static final String MESSAGE = "Choose a password for the test";
+    private static final String SUBMIT = "Submit";
+    private static final String CANCEL = "Cancel";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,16 +60,15 @@ public class example extends ActionBarActivity {
         String teacher = (String) bundle.get("Teacher");
         String name = (String) bundle.get("Name");
         String calcName = (String) bundle.get("CalcName");
-
         //Find the parse object using the arguments
         ParseObject parseObject = parseUtil.getParseObject("Test", "Teacher", teacher, calcName);
+        List<String> exited = (List<String>) parseObject.get("Exited");
         List<String> students = (List<String>) parseObject.get("Students");
-
-        //Remove the student and update the list
+        //Add the student and update the list
         students.remove(name);
-        parseObject.put("Students", students);
+        exited.add(name);
+        parseObject.put("Exited", exited);
         parseObject.saveInBackground();
-        Log.d("Pause", "Yes");
     }
 
 }
