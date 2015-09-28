@@ -1,12 +1,32 @@
 package com.example.ahadu_000.calculator;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import net.sourceforge.jeval.EvaluationException;
+import net.sourceforge.jeval.Evaluator;
+import net.sourceforge.jeval.function.Function;
+import net.sourceforge.jeval.function.FunctionException;
+import net.sourceforge.jeval.function.FunctionResult;
+import net.sourceforge.jeval.function.string.Eval;
 
 import com.parse.ParseObject;
+
+import java.util.Arrays;
 
 
 public class StudentTest extends ActionBarActivity {
@@ -15,7 +35,12 @@ public class StudentTest extends ActionBarActivity {
     private static final String NAME = "Name";
     private static final String TEACHER = "Teacher";
     private static final String CALCULATOR = "Calculator";
+    private static final int MAXROWS = 6;
+    private static final int MAXCOLS = 5;
     private static final int MAXBUTTONS = 30;
+    private int[] filledRows = new int[MAXROWS];
+    private int[] filledCols = new int[MAXCOLS];
+    private Evaluator eval = new Evaluator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +53,153 @@ public class StudentTest extends ActionBarActivity {
         ParseObject parseObject = parseUtil.getParseObject(CALCULATOR, TEACHER, teacher, calcName);
         Calculator calc = parseUtil.convertToCalculator(parseObject);
         String[] calcButtonTexts = new String[MAXBUTTONS];
-        calcButtonTexts = calc.getFunctions().toArray();
+        calcButtonTexts = calc.getFunctions().toArray(calcButtonTexts);
+        findEmptyRows(calcButtonTexts, MAXROWS, MAXCOLS);
+        findEmptyCols(calcButtonTexts, MAXROWS, MAXCOLS);
+        final int totRows = sum(filledRows, MAXROWS);
+        final int totCols = sum(filledCols, MAXCOLS);
+        Button[] myButtons = new Button[totRows*totCols];
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int screenWidth = size.x;
+
+        super.onCreate(savedInstanceState);
+
+        final RelativeLayout mainLayout = new RelativeLayout(StudentTest.this);
+        mainLayout.setId(mainLayout.generateViewId());
+
+        GridLayout gl = new GridLayout(mainLayout.getContext());
+        RelativeLayout.LayoutParams gllp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        gllp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM); //, changeButton.getId());
+        gl.setLayoutParams(gllp);
+        gl.setId(gl.generateViewId());
+        gl.setColumnCount(totRows);
+        gl.setRowCount(totCols);
+
+        TextView calcScreen = new TextView(this);
+        RelativeLayout.LayoutParams screenParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        screenParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        screenParams.addRule(RelativeLayout.ABOVE, gl.getId());
+        calcScreen.setId(calcScreen.generateViewId());
+        final int calcScreenId = calcScreen.getId();
+        calcScreen.setText("");
+        calcScreen.setVerticalScrollBarEnabled(true);
+        calcScreen.setMovementMethod(new ScrollingMovementMethod());
+
+        for (int i = 0; i < MAXROWS; i++) {
+            for (int j = 0; j < MAXCOLS; j++) {
+                if (filledRows[i] == 1 && filledCols[i] == 1) {
+                    String text = calcButtonTexts[i * MAXCOLS + j];
+                    myButtons[i] = new Button(this);
+                    if (calcButtonTexts[i].indexOf(":") != -1) {
+                        //removes function declaration from text if it's a custom function
+                        text = text.substring(0, calcButtonTexts[i*MAXCOLS + j].indexOf(":"));
+                        final String text1 = text;
+                        final String fnDecl = text.substring(calcButtonTexts[i*MAXCOLS + j].indexOf(":"));
+                        Function function = new Function() {
+                            @Override
+                            public String getName() {
+                                return text1;
+                            }
+
+                            @Override
+                            public FunctionResult execute(Evaluator evaluator, String arguments) throws FunctionException {
+                                try {return new FunctionResult(evaluator.evaluate(fnDecl.replace("x", arguments)), 0);}
+                                catch (EvaluationException ee) {
+                                    return new FunctionResult("Invalid", 0);
+                                }
+                            }
+                        };
+                        eval.putFunction(function);
+
+                    }
+                    final String buttonText = text;
+                    myButtons[i].setText(text);
+                    myButtons[i].setGravity(Gravity.CENTER);
+                    myButtons[i].generateViewId();
+                    myButtons[i].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            TextView calcScreen = (TextView) findViewById(calcScreenId);
+                            if (((TextView) v).getText().toString().equals("=")) {
+                                //evaluate the mathematical expression
+                                calcScreen.setText(evaluate(((TextView) v).getText().toString()));
+                            } else if (((TextView) v).getText().toString().equals("AC")) {
+                                calcScreen.setText("");
+                            } else {
+                                calcScreen.append(buttonText + " ");
+                            }
+                        }
+                    });
+                }
+                gl.addView(myButtons[i*MAXCOLS + j], screenWidth / totCols, myButtons[i*MAXCOLS + j].getMinimumHeight());
+            }
+        }
+        mainLayout.addView(gl);
+        setContentView(mainLayout);
         //super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_student_test);
+        //setContentView(R.layout.activity_student_test)
+    }
+
+    public String evaluate(String exp) {
+        String result;
+        try {
+            result = eval.evaluate(exp)
+            ;}
+        catch (EvaluationException ee) {
+            result = "";
+        }
+        return result;
+    }
+
+    public int sum(int[] vals, int len) {
+        int s = 0;
+        for (int i = 0; i < len; i++) {
+            s += vals[i];
+        }
+        return s;
+    }
+
+    public void findEmptyCols(String[] texts, int rows, int cols) {
+        boolean colEmpty = true;
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
+                if (!texts[i * cols + j].equals("")) {
+                    colEmpty = false;
+                    break;
+                }
+            }
+            if (colEmpty) {
+                filledCols[i] = 0;
+            }
+            else {
+                filledCols[i] = 1;
+            }
+            colEmpty = true;
+        }
+    }
+
+    public void findEmptyRows(String[] texts, int rows, int cols) {
+        boolean rowEmpty = true;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (!texts[i * cols + j].equals("")) {
+                    rowEmpty = false;
+                    break;
+                }
+            }
+            if (rowEmpty) {
+                filledRows[i] = 0;
+            }
+            else {
+                filledRows[i] = 1;
+            }
+            rowEmpty = true;
+        }
     }
 
     @Override
