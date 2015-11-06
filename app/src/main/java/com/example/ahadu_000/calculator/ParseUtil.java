@@ -60,6 +60,7 @@ public class ParseUtil {
         }
         for (ParseObject parseObject : parseObjects) {
             Log.d("getParseObject", parseObject.getString(NAME));
+            Log.d("Name: ", parseObject.getString(NAME));
             if (name.equals(parseObject.getString(NAME))) {
                 return parseObject;
             }
@@ -97,11 +98,14 @@ public class ParseUtil {
      */
     public Calculator convertToCalculator(ParseObject parseObject) {
         //Get data from parse object
-        if(parseObject == null) return null;
+        if(parseObject == null) {
+            Log.d("Parse object ", "== null");
+            return null;
+        }
         String name = parseObject.getString(NAME);
         String teacher = parseObject.getString(TEACHER);
         String password = parseObject.getString(PASSWORD);
-        List<String> functions = (List<String>) parseObject.get(OPERATIONS);
+        List<String> functions = (List<String>) parseObject.get(FUNCTIONS);
 
         //Create calculator from parse object data
         Calculator calc = new Calculator(name, teacher, functions, password);

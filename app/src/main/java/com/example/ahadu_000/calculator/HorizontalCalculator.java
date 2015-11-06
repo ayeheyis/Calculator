@@ -33,7 +33,7 @@ public class HorizontalCalculator extends ActionBarActivity {
     private final int initCols = 5;
     private final int totButtons = initRows * initCols;
     Button myButtons[] = new Button[totButtons];
-    static String myTexts[] = {"", "", "", "", "", "", "AC", "+/-", "%", "/", "", "7", "8", "9", "x", "",
+    static String myTexts[] = {"", "", "", "", "", "", "AC", "-", "%", "/", "", "7", "8", "9", "*", "",
             "4", "5", "6", "-", "", "1", "2", "3", "+", "", "0", "0", ".", "="};
     int textCount = myTexts.length;
     String required[] = {"AC", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "="};
