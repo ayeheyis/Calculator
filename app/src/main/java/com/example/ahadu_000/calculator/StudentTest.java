@@ -106,10 +106,10 @@ public class StudentTest extends ActionBarActivity {
                     myButtons[ind] = new Button(this);
                     if (calcButtonTexts[i * MAXCOLS + j].indexOf(":") != -1) {
                         //removes function declaration from text if it's a custom function
-                        text = text.substring(0, calcButtonTexts[i*MAXCOLS + j].indexOf(":"));
-                        final String text1 = text;
+                        final String text1 = text.substring(0, calcButtonTexts[i*MAXCOLS + j].indexOf(":"));
                         String fn = text.substring(calcButtonTexts[i*MAXCOLS + j].indexOf(":"));
                         final String fnDecl = fn.replace(":", "");
+                        Log.d("fnDecl", fnDecl);
                         Function function = new Function() {
                             @Override
                             public String getName() {
@@ -120,11 +120,12 @@ public class StudentTest extends ActionBarActivity {
                             public FunctionResult execute(Evaluator evaluator, String arguments) throws FunctionException {
                                 try {return new FunctionResult(evaluator.evaluate(fnDecl.replace("x", arguments)), FunctionConstants.FUNCTION_RESULT_TYPE_NUMERIC);}
                                 catch (EvaluationException ee) {
-                                    return new FunctionResult("Invalid", 0);
+                                    return new FunctionResult("Invalid", FunctionConstants.FUNCTION_RESULT_TYPE_STRING);
                                 }
                             }
                         };
                         eval.putFunction(function);
+                        text = text1;
 
                     }
                     final String buttonText = text;
